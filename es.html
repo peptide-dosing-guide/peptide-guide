@@ -164,13 +164,14 @@ pre.fallback{margin:0;padding:12px;background:var(--track);border-radius:12px;fo
   .key{font-size:1.12rem}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.legend .ev{justify-self:start}
 </style>
 
 </head>
 <body>
 <div class="wrap">
   <header>
-    <p class="eyebrow"><b>44 productos</b><span>8 categorías</span><span>Jeringa U-100</span></p>
+    <p class="eyebrow"><b>49 productos</b><span>8 categorías</span><span>Jeringa U-100</span></p>
     <h1>Guía de Reconstitución <em>y Dosis</em></h1>
     <p class="sub">Cantidades de mezcla, unidades de jeringa y horarios en un solo lugar. Elige el vial, ajusta el agua y lee cuánto cargar.</p>
     <div class="ruler" aria-hidden="true"><div class="bar2"></div><div class="lab"><span>0</span><span>25</span><span>50</span><span>75</span><span>100 unidades = 1 mL</span></div></div>
@@ -194,7 +195,7 @@ pre.fallback{margin:0;padding:12px;background:var(--track);border-radius:12px;fo
   </section>
 
   <div class="bar">
-    <input id="q" type="search" placeholder="Buscar entre 44 productos" aria-label="Buscar productos" autocomplete="off">
+    <input id="q" type="search" placeholder="Buscar entre 49 productos" aria-label="Buscar productos" autocomplete="off">
     <div class="chips" id="chips"></div>
   </div>
 
@@ -219,15 +220,15 @@ const MTC="La etiqueta advierte contra su uso si hay antecedentes personales o f
 /* sizes: [mg, mL de agua] o, en mezclas, [[mg por componente], mL de agua]. doses en mg del primer componente. pw = dosis por semana. */
 const E=[
 /* ---------- Metabólicos ---------- */
-{id:"retatrutide",cat:0,name:"Retatrutida",aka:"Se vende como GLP-3RT",ev:"T",what:"Agonista triple (GLP-1, GIP, glucagón).",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[1,2,4,8,12],freq:"Semanal",pw:1,
+{id:"retatrutide",cat:0,name:"Retatrutida",aka:"También etiquetado GLP-3RT",ev:"T",what:"Agonista triple (GLP-1, GIP, glucagón).",sizes:[[10,2],[15,3],[20,2],[30,3],[60,3]],doses:[1,2,4,8,12],freq:"Semanal",pw:1,
  sched:["Una inyección por semana, el mismo día cada semana","Empieza bajo: 1 a 2 mg","Sube cada 4 semanas aproximadamente, según tolerancia","Escalones de los ensayos: 2, 4, 8, 12 mg"],
  notes:[GI,"Su vida media es de unos 6 días, así que nunca se dosifica a diario."]},
-{id:"tirzepatide",cat:0,name:"Tirzepatida",aka:"Se vende como GLP-2TZ",ev:"L",what:"Agonista dual (GLP-1, GIP). Mismo ingrediente que Mounjaro y Zepbound.",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[2.5,5,7.5,10,12.5,15],freq:"Semanal",pw:1,
+{id:"tirzepatide",cat:0,name:"Tirzepatida",aka:"También etiquetado GLP-2TZ",ev:"L",what:"Agonista dual (GLP-1, GIP). Mismo ingrediente que Mounjaro y Zepbound.",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[2.5,5,7.5,10,12.5,15],freq:"Semanal",pw:1,
  sched:["Una inyección por semana, el mismo día cada semana","Empieza con 2.5 mg durante 4 semanas","Sube de 2.5 mg en 2.5 mg, con al menos 4 semanas entre cada aumento","Máximo 15 mg por semana"],
  notes:[GI,MTC]},
-{id:"semaglutide",cat:0,name:"Semaglutida",aka:"Se vende como GLP-1SG",ev:"L",what:"Agonista de GLP-1. Mismo ingrediente que Ozempic y Wegovy.",sizes:[[10,2],[15,3],[20,2],[30,3]],doses:[0.25,0.5,1,1.7,2.4],freq:"Semanal",pw:1,
+{id:"semaglutide",cat:0,name:"Semaglutida",aka:"También etiquetado GLP-1SG",ev:"L",what:"Agonista de GLP-1. Mismo ingrediente que Ozempic y Wegovy.",sizes:[[10,2],[15,3],[20,2],[30,3]],doses:[0.25,0.5,1,1.7,2.4],freq:"Semanal",pw:1,
  sched:["Una inyección por semana, el mismo día cada semana","Empieza con 0.25 mg durante 4 semanas","Luego 0.5, 1, 1.7 y 2.4 mg, cada una por al menos 4 semanas"],
- notes:["GLP-1SG es una abreviatura del vendedor. Confirma el ingrediente en el certificado de análisis (COA).",GI,MTC]},
+ notes:[GI,MTC]},
 {id:"cagrilintide",cat:0,name:"Cagrilintida",ev:"T",what:"Análogo de amilina de acción prolongada.",sizes:[[10,2]],doses:[0.3,0.6,1.2,2.4],freq:"Semanal",pw:1,
  sched:["Una inyección por semana","Los ensayos empezaron con 0.3 mg y subieron cada 4 semanas aproximadamente","2.4 mg por semana fue la dosis principal de los ensayos, a menudo junto con semaglutida"],
  notes:[GI]},
@@ -241,14 +242,14 @@ const E=[
  notes:["No hay ensayos en humanos. Se vende sobre todo en cápsulas orales, normalmente 50 mg de una a tres veces al día.","No existe una dosis inyectable establecida. La calculadora de abajo es solo para el cálculo."]},
 {id:"slu-pp-332",cat:0,name:"SLU-PP-332",ev:"N",what:"Compuesto experimental \"mimético del ejercicio\".",sizes:[[5,2]],doses:[],u:"mcg",freq:"Sin dosis fija",
  notes:["Solo hay estudios en animales. No existe dosis en humanos, ni oral ni inyectada."]},
-{id:"lipo-pure",cat:0,name:"Lipo Pure (MIC-B12)",ev:"I",what:"Metionina, inositol, colina y vitamina B12.",info:["El vendedor no indica la cantidad de cada ingrediente ni el volumen del frasco, así que no se pueden calcular unidades a partir de la ficha.","El MIC-B12 de clínica suele ser un líquido ya preparado que se aplica 1 mL una vez por semana, intramuscular.","Revisa la etiqueta antes de usar cualquier número."]},
-{id:"lemon-bottle",cat:0,name:"Lemon Bottle 10 mg",ev:"I",what:"Aparece sin descripción ni ingredientes.",info:["Lemon Bottle es la marca de una solución lipolítica que los profesionales inyectan en depósitos de grasa. No es un péptido que se dosifique en unidades de jeringa.","La página del vendedor no indica contenido ni instrucciones. No lo mezcles ni lo dosifiques sin la etiqueta."]},
+{id:"lipo-pure",cat:0,name:"Mezcla MIC (Lipo-C + B12)",ev:"I",what:"Metionina, inositol, colina y vitamina B12.",info:["Las cantidades de cada ingrediente y el volumen del frasco varían según el fabricante, así que no hay una dosis única en unidades.","El MIC-B12 de clínica suele ser un líquido ya preparado que se aplica 1 mL una vez por semana, intramuscular.","Revisa la etiqueta antes de usar cualquier número."]},
+{id:"lemon-bottle",cat:0,name:"Lemon Bottle 10 mg",ev:"I",what:"Solución lipolítica, no es un péptido.",info:["Lemon Bottle es la marca de una solución lipolítica que los profesionales inyectan en depósitos de grasa. No es un péptido que se dosifique en unidades de jeringa.","No lo mezcles ni lo dosifiques sin la etiqueta."]},
 
 /* ---------- Regenerativos ---------- */
 {id:"bpc-157",cat:1,name:"BPC-157",ev:"C",what:"Péptido estudiado en animales para reparar tendones, intestino y tejido blando.",sizes:[[5,2],[10,2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
  sched:["250 a 500 mcg por día","Una vez al día, o dividido en dos inyecciones"],
  notes:["Ningún ensayo en humanos fija una dosis. Empezar por el extremo bajo es lo prudente."]},
-{id:"tb-500",cat:1,name:"TB-500",aka:"Timosina beta-4",ev:"C",what:"Péptido estudiado para reparación de tejidos y recuperación.",sizes:[[10,2]],doses:[2,2.5,5],freq:"2 veces por semana",pw:2,
+{id:"tb-500",cat:1,name:"TB-500",aka:"Timosina beta-4",ev:"C",what:"Péptido estudiado para reparación de tejidos y recuperación.",sizes:[[5,1],[10,2]],doses:[2,2.5,5],freq:"2 veces por semana",pw:2,
  sched:["Carga: 2 a 2.5 mg dos veces por semana durante 4 a 6 semanas","Después, 2 a 2.5 mg cada 1 a 2 semanas","Algunos usan 5 mg una vez por semana"],
  notes:[NOTRIAL]},
 {id:"bpc-tb-blend",cat:1,name:"Mezcla BPC-157 / TB-500",ev:"C",what:"Partes iguales de ambos péptidos en un vial.",comps:["BPC-157","TB-500"],sizes:[[[5,5],2],[[10,10],2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
@@ -257,19 +258,25 @@ const E=[
 {id:"ghk-cu",cat:1,name:"GHK-Cu",aka:"Péptido de cobre",ev:"C",what:"Péptido que se une al cobre, usado para piel y cabello.",sizes:[[50,2.5],[100,5]],doses:[1,2],freq:"Diaria",pw:7,
  sched:["1 a 2 mg por día","A menudo 5 días por semana, en ciclos de 4 a 6 semanas"],
  notes:["Arde. Inyectar despacio ayuda.","El color azul es normal.","100 mg en 5 mL requiere un vial grande. Si no cabe, baja el agua."]},
-{id:"glow",cat:1,name:"Mezcla GLOW",aka:"GHK-Cu / BPC-157 / TB-500, 70 mg",ev:"C",what:"Mezcla de tres péptidos para piel y reparación.",comps:["GHK-Cu","BPC-157","TB-500"],sizes:[[[50,10,10],3]],doses:[1,1.5,2],freq:"Diaria",pw:7,
+{id:"glow",cat:1,name:"Stack GLOW",aka:"GHK-Cu / BPC-157 / TB-500",ev:"C",what:"Mezcla de tres péptidos para piel y reparación.",comps:["GHK-Cu","BPC-157","TB-500"],sizes:[[[50,10,10],3],[[100,5,5],5]],doses:[1,1.5,2],freq:"Diaria",pw:7,
  sched:["Se dosifica por la cantidad de GHK-Cu: 1 a 2 mg por día","A menudo 5 días por semana, en ciclos de 4 a 6 semanas"],
- notes:["El vendedor no indica la proporción. 50 / 10 / 10 mg es la fórmula habitual de GLOW de 70 mg. Confírmala en la etiqueta o el COA.","Arde por el GHK-Cu. El color azul es normal."]},
-{id:"klow",cat:1,name:"Mezcla KLOW",aka:"GHK-Cu / BPC-157 / TB-500 / KPV, 80 mg",ev:"C",what:"GLOW más KPV.",comps:["GHK-Cu","BPC-157","TB-500","KPV"],sizes:[[[50,10,10,10],3]],doses:[1,1.5,2],freq:"Diaria",pw:7,
+ notes:["Las fórmulas varían, así que elige la proporción impresa en tu vial. La versión de 100 / 5 / 5 mg lleva mucho menos BPC-157 y TB-500 por dosis.","Arde por el GHK-Cu. El color azul es normal."]},
+{id:"klow",cat:1,name:"Mezcla KLOW (4 péptidos)",aka:"GHK-Cu / BPC-157 / TB-500 / KPV, 80 mg",ev:"C",what:"GLOW más KPV.",comps:["GHK-Cu","BPC-157","TB-500","KPV"],sizes:[[[50,10,10,10],3]],doses:[1,1.5,2],freq:"Diaria",pw:7,
  sched:["Se dosifica por la cantidad de GHK-Cu: 1 a 2 mg por día","A menudo 5 días por semana, en ciclos de 4 a 6 semanas"],
- notes:["Se vende como 80 mg (50 / 10 / 10 / 10). El informe de laboratorio del vendedor midió unos 91 mg en total, así que las dosis reales son un poco más altas.","Arde por el GHK-Cu. El color azul es normal."]},
+ notes:["Esta es la versión de 80 mg con cuatro péptidos (50 / 10 / 10 / 10). El Stack KLOW de dos péptidos tiene su propia ficha.","Arde por el GHK-Cu. El color azul es normal."]},
+{id:"klow-stack",cat:1,name:"Stack KLOW",aka:"GHK-Cu 100 mg + KPV 10 mg",ev:"C",what:"Stack de dos péptidos para piel e inflamación.",comps:["GHK-Cu","KPV"],sizes:[[[100,10],5]],doses:[1,1.5,2],freq:"Diaria",pw:7,
+ sched:["Se dosifica por la cantidad de GHK-Cu: 1 a 2 mg por día","A menudo 5 días por semana, en ciclos de 4 a 6 semanas"],
+ notes:["5 mL requiere un vial grande. Si no cabe, baja el agua.","Arde por el GHK-Cu. El color azul es normal."]},
+{id:"wolverine",cat:1,name:"Stack Wolverine",aka:"BPC-157 10 mg + TB-500 5 mg",ev:"C",what:"Stack de dos péptidos para reparación.",comps:["BPC-157","TB-500"],sizes:[[[10,5],2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
+ sched:["Se dosifica por la cantidad de BPC-157: 250 a 500 mcg por día","Una vez al día, o dividido en dos inyecciones"],
+ notes:["La proporción es fija, así que cada dosis lleva la mitad de TB-500 que de BPC-157."]},
 {id:"kpv",cat:1,name:"KPV",ev:"C",what:"Fragmento de tres aminoácidos de la alfa-MSH, estudiado para la inflamación.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
  sched:["250 a 500 mcg por día"],
  notes:[NOTRIAL]},
 {id:"ara-290",cat:1,name:"ARA-290",aka:"Cibinetida",ev:"T",what:"Péptido estudiado para dolor nervioso y neuropatía de fibras pequeñas.",sizes:[[10,2]],doses:[2,4],freq:"Diaria",pw:7,
  sched:["Los ensayos de fase 2 usaron 4 mg una vez al día durante 28 días"],
  notes:["Un vial de 10 mg rinde solo de 2 a 5 dosis."]},
-{id:"hulk",cat:1,name:"Mezcla Hulk",aka:"BPC-157 10 / TB-500 25 / KPV 10 mg",ev:"C",what:"Mezcla de tres péptidos para reparación. Agotada al momento de revisar.",comps:["BPC-157","TB-500","KPV"],sizes:[[[10,25,10],2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
+{id:"hulk",cat:1,name:"Mezcla Hulk",aka:"BPC-157 10 / TB-500 25 / KPV 10 mg",ev:"C",what:"Mezcla de tres péptidos para reparación.",comps:["BPC-157","TB-500","KPV"],sizes:[[[10,25,10],2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
  sched:["Se dosifica por la cantidad de BPC-157: 250 a 500 mcg por día"],
  notes:["La proporción es fija, así que cada dosis lleva 2.5 veces más TB-500 que BPC-157."]},
 
@@ -283,16 +290,22 @@ const E=[
 {id:"cjc-ipamorelin",cat:2,name:"CJC-1295 / Ipamorelina",aka:"Sin DAC, 5 mg + 5 mg",ev:"C",what:"Análogo de GHRH más secretagogo en un vial.",comps:["CJC-1295","Ipamorelina"],sizes:[[[5,5],2]],doses:[0.1,0.2,0.3],freq:"Cada noche",pw:5,
  sched:["Empieza con 100 mcg de cada uno","Típico: 100 a 300 mcg de cada uno","Una vez al día antes de dormir, 2 a 3 horas después de comer","A menudo 5 días sí, 2 días no"],
  notes:["Este vial es CJC-1295 sin DAC. La versión \"con DAC\" se dosifica por semana, no a diario.","Es común un rubor breve o presión en la cabeza, además de retención de líquidos y hormigueo en las manos."]},
-{id:"tesa-ipa",cat:2,name:"Tesamorelina / Ipamorelina",ev:"I",what:"Mezcla de dos péptidos, en viales de 10 mg y 20 mg.",info:["El vendedor no indica cuánto de cada péptido hay en el vial.","Sin la proporción no hay forma de calcular unidades. Consíguela primero en la etiqueta o el COA."]},
+{id:"tesa-ipa",cat:2,name:"Tesamorelina / Ipamorelina",ev:"I",what:"Mezcla de dos péptidos, en viales de 10 mg y 20 mg.",info:["La proporción de la mezcla varía según el fabricante.","Sin la proporción no hay forma de calcular unidades. Consíguela primero en la etiqueta o el COA."]},
+{id:"sermorelin",cat:2,name:"Sermorelina",ev:"C",what:"Análogo de GHRH. Antes se vendía como el medicamento aprobado Geref, ya descontinuado.",sizes:[[5,2.5]],doses:[0.1,0.2,0.3],freq:"Cada noche",pw:7,
+ sched:["200 a 300 mcg una vez al día","Antes de dormir, con el estómago vacío","Muchos empiezan con 100 mcg"],
+ notes:["Es un medicamento de receta en EE. UU.","Rubor, dolor de cabeza y enrojecimiento en el sitio de inyección son los efectos secundarios comunes."]},
+{id:"cjc-dac",cat:2,name:"CJC-1295 con DAC",ev:"C",what:"Análogo de GHRH de acción prolongada. Una inyección dura cerca de una semana.",sizes:[[5,2.5],[10,2.5]],doses:[1,2],freq:"Semanal",pw:1,
+ sched:["1 a 2 mg una vez por semana","Nunca se dosifica a diario"],
+ notes:["No es lo mismo que la versión sin DAC de la mezcla CJC-1295 / Ipamorelina, que se dosifica cada noche.","Su desarrollo clínico se detuvo hace años y nunca fue aprobado.","Retención de líquidos, rubor y hormigueo en las manos son los efectos secundarios comunes."]},
 {id:"igf-1-lr3",cat:2,name:"IGF-1 LR3",ev:"C",what:"Análogo de IGF-1 de acción prolongada.",sizes:[[1,2]],doses:[0.02,0.04,0.05],freq:"Diaria",pw:7,
  sched:["20 a 50 mcg por día","Los ciclos suelen limitarse a unas 4 semanas"],
  notes:["Puede causar bajones de azúcar. Conoce las señales (temblor, sudor, confusión) y ten carbohidratos rápidos a la mano.","Estimula el crecimiento de todo tipo de tejido, que es la principal preocupación de seguridad a largo plazo.","Algunas etiquetas piden ácido acético en lugar de agua bacteriostática. Sigue la etiqueta."]},
-{id:"mk-677",cat:2,name:"MK-677 en cápsulas",aka:"Ibutamoren",ev:"I",what:"Secretagogo oral de la hormona de crecimiento. Agotado al momento de revisar.",info:["Se toma por la boca, así que no hay nada que mezclar.","El vendedor no indica los mg por cápsula. Revisa el frasco.","Los ensayos usaron 25 mg una vez al día. Mucha gente toma de 10 a 25 mg por la noche.","Aumenta el apetito y puede subir el azúcar en sangre y causar retención de líquidos."]},
+{id:"mk-677",cat:2,name:"MK-677 en cápsulas",aka:"Ibutamoren",ev:"I",what:"Secretagogo oral de la hormona de crecimiento.",info:["Se toma por la boca, así que no hay nada que mezclar.","La concentración por cápsula varía. Revisa el frasco.","Los ensayos usaron 25 mg una vez al día. Mucha gente toma de 10 a 25 mg por la noche.","Aumenta el apetito y puede subir el azúcar en sangre y causar retención de líquidos."]},
 
 /* ---------- Longevidad y mitocondrias ---------- */
-{id:"nad",cat:3,name:"NAD+",ev:"C",what:"Coenzima, no es un péptido.",sizes:[[500,5]],doses:[25,50,100],freq:"Diaria o 2–3 por semana",pw:3,
+{id:"nad",cat:3,name:"NAD+",ev:"C",what:"Coenzima, no es un péptido.",sizes:[[500,5],[1000,10]],doses:[25,50,100],freq:"Diaria o 2–3 por semana",pw:3,
  sched:["Inicio: 25 a 50 mg","Típico: 50 a 100 mg","A diario, o 2 a 3 veces por semana","Inyecta despacio"],
- notes:["Verifica que al vial le quepan 5 mL. Si no, baja el agua.","Suele arder y puede causar rubor o náuseas.","Protégelo de la luz. Una vez mezclado se degrada más rápido que la mayoría de los péptidos."]},
+ notes:["Verifica que al vial le quepa el agua indicada. Si no, bájala.","Suele arder y puede causar rubor o náuseas.","Protégelo de la luz. Una vez mezclado se degrada más rápido que la mayoría de los péptidos."]},
 {id:"glutathione",cat:3,name:"Glutatión",ev:"C",what:"Tripéptido antioxidante.",sizes:[[1500,7.5]],doses:[50,100,200],freq:"2–3 por semana",pw:3,
  sched:["Inicio: 50 a 100 mg","Típico: 100 a 200 mg","2 a 3 veces por semana, o una dosis menor a diario","Inyecta despacio"],
  notes:["7.5 mL requiere un vial de 10 mL.","El polvo añade volumen, así que la concentración real queda un poco por debajo del número mostrado.","El olor a azufre es normal. Deséchalo si se pone amarillo o turbio."]},
@@ -309,10 +322,10 @@ const E=[
 {id:"cartalax",cat:3,name:"Cartalax",ev:"N",what:"Péptido de tres aminoácidos.",sizes:[[20,2]],doses:[],u:"mg",freq:"Sin dosis fija",notes:[BIO]},
 
 /* ---------- Cognición y sueño ---------- */
-{id:"semax",cat:4,name:"N-Acetil Semax",aka:"Se vende como Na-Semax",ev:"C",what:"Análogo de un fragmento de ACTH usado como nootrópico.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
+{id:"semax",cat:4,name:"N-Acetil Semax",aka:"También etiquetado Na-Semax",ev:"C",what:"Análogo de un fragmento de ACTH usado como nootrópico.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
  sched:["250 a 500 mcg una vez al día, normalmente por la mañana"],
  notes:["Semax está aprobado en Rusia como gotas nasales, no como inyección. Las dosis inyectadas son solo uso común."]},
-{id:"selank",cat:4,name:"N-Acetil Selank",aka:"Se vende como Na-Selank",ev:"C",what:"Análogo de la tuftsina usado para ansiedad y concentración.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
+{id:"selank",cat:4,name:"N-Acetil Selank",aka:"También etiquetado Na-Selank",ev:"C",what:"Análogo de la tuftsina usado para ansiedad y concentración.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Diaria",pw:7,
  sched:["250 a 500 mcg una vez al día"],
  notes:["Selank está aprobado en Rusia como gotas nasales, no como inyección. Las dosis inyectadas son solo uso común."]},
 {id:"dsip",cat:4,name:"DSIP",aka:"Péptido inductor del sueño delta",ev:"C",what:"Péptido usado para dormir.",sizes:[[5,2.5],[10,2.5],[15,3]],doses:[0.1,0.2,0.3],freq:"Cada noche",pw:7,
@@ -340,6 +353,9 @@ const E=[
 {id:"pt-141",cat:6,name:"PT-141",aka:"Bremelanotida",ev:"L",what:"Mismo ingrediente que Vyleesi.",sizes:[[10,2]],doses:[1,1.75],freq:"Según necesidad",
  sched:["1.75 mg al menos 45 minutos antes","No más de una dosis en 24 horas","No más de 8 dosis al mes"],
  notes:["Las náuseas son comunes, sobre todo con la primera dosis.","Sube la presión arterial durante unas horas. La etiqueta indica no usarlo con hipertensión no controlada o enfermedad cardíaca."]},
+{id:"hcg",cat:6,name:"HCG",aka:"Gonadotropina coriónica humana",ev:"L",what:"La misma hormona que Novarel y Pregnyl.",iu:true,u:"UI",sizes:[[5000,5]],doses:[250,500,1000],freq:"2–3 por semana",pw:3,
+ sched:["Se dosifica en UI, no en mg","Común junto con la terapia de testosterona: 500 UI dos o tres veces por semana","Las dosis para fertilidad y otros usos aprobados las fija quien receta"],
+ notes:["Es un medicamento de receta en EE. UU.","Puede subir el estrógeno. Sensibilidad en el pecho y retención de líquidos son las señales habituales."]},
 {id:"kisspeptin",cat:6,name:"Kisspeptina",ev:"N",what:"Hormona que desencadena la liberación de GnRH.",sizes:[[10,2]],doses:[],u:"mcg",freq:"Sin dosis fija",
  notes:["Se usa en investigación de fertilidad con dosis según el peso, aplicadas por clínicos. No hay una dosis establecida para autoinyección."]},
 
@@ -349,9 +365,9 @@ const E=[
 
 const $=id=>document.getElementById(id);
 const trim=(x,d)=>String(parseFloat(x.toFixed(d)));
-const fmtDose=mg=>mg<1?trim(mg*1000,1)+" mcg":trim(mg,2)+" mg";
+const fmtDose=(mg,e)=>e&&e.iu?trim(mg,0)+" UI":mg<1?trim(mg*1000,1)+" mcg":trim(mg,2)+" mg";
 const mgs=s=>Array.isArray(s[0])?s[0]:[s[0]];
-const sizeLabel=s=>mgs(s).join(" / ")+" mg";
+const sizeLabel=(s,e)=>mgs(s).join(" / ")+(e&&e.iu?" UI":" mg");
 const equal=a=>a.every(x=>x===a[0]);
 const S={}; E.forEach(e=>{ if(e.sizes) S[e.id]={i:0,w:e.sizes[0][1]}; });
 const unitOf=e=>e.u||(e.doses.length&&Math.min(...e.doses)<1?"mcg":"mg");
@@ -374,7 +390,7 @@ function carried(e,c,d){
   return "También lleva "+c.a.slice(1).map((m,j)=>fmtDose(d*m/c.lead)+" de "+e.comps[j+1]).join(", ")+". ";
 }
 function doseLabel(e,c,d){
-  if(!e.comps) return fmtDose(d);
+  if(!e.comps) return fmtDose(d,e);
   return fmtDose(d)+(equal(c.a)?" c/u":" "+e.comps[0]);
 }
 function rowHTML(e,c,d){
@@ -382,12 +398,12 @@ function rowHTML(e,c,d){
   return `<div class="dose"><span class="num">${doseLabel(e,c,d)}</span><span class="num u">${ut} uds</span><span class="syr${u>100?" over":""}" role="img" aria-label="${ut} de 100 unidades"><i style="width:${Math.min(u,100)}%"></i></span><small>${carried(e,c,d)}${flags(e,c,d,u)}</small></div>`;
 }
 function strengthText(e,c){
-  if(!e.comps) return trim(c.lead/c.w,2)+" mg/mL";
+  if(!e.comps) return trim(c.lead/c.w,2)+(e.iu?" UI/mL":" mg/mL");
   if(equal(c.a)) return trim(c.lead/c.w,2)+" mg/mL de cada uno";
   return c.a.map((m,j)=>e.comps[j]+" "+trim(m/c.w,2)).join(" · ")+" mg/mL";
 }
 function keyText(e,c){
-  return "1 unidad = "+fmtDose(c.unitMg)+(e.comps?(equal(c.a)?" de cada uno":" de "+e.comps[0]):"");
+  return "1 unidad = "+fmtDose(c.unitMg,e)+(e.comps?(equal(c.a)?" de cada uno":" de "+e.comps[0]):"");
 }
 function update(e){
   const c=calc(e);
@@ -406,7 +422,7 @@ function bodyHTML(e){
   const st=S[e.id], u=unitOf(e);
   return `<div class="sec">${evline}</div>
   <div class="sec"><p class="label">Mezcla</p>
-    ${e.sizes.length>1?`<div class="ctl"><span>Vial</span><div class="seg">${e.sizes.map((s,i)=>`<button type="button" data-id="${e.id}" data-size="${i}" aria-pressed="${i===0}">${sizeLabel(s)}</button>`).join("")}</div></div>`:`<div class="ctl"><span>Vial</span><b class="num">${sizeLabel(e.sizes[0])}</b></div>`}
+    ${e.sizes.length>1?`<div class="ctl"><span>Vial</span><div class="seg">${e.sizes.map((s,i)=>`<button type="button" data-id="${e.id}" data-size="${i}" aria-pressed="${i===0}">${sizeLabel(s,e)}</button>`).join("")}</div></div>`:`<div class="ctl"><span>Vial</span><b class="num">${sizeLabel(e.sizes[0],e)}</b></div>`}
     <div class="ctl"><span>Agua bac.</span><div class="step"><button type="button" data-id="${e.id}" data-step="-0.5" aria-label="Menos agua">−</button><input type="number" id="w-${e.id}" data-id="${e.id}" data-water value="${st.w}" min="0.5" step="0.5" inputmode="decimal" aria-label="mL de agua bacteriostática"><button type="button" data-id="${e.id}" data-step="0.5" aria-label="Más agua">+</button><span class="num">mL</span></div></div>
     <div class="ctl"><span>Concentración</span><span class="strength" id="st-${e.id}"></span></div>
   </div>
@@ -422,7 +438,7 @@ function bodyHTML(e){
 }
 
 function cardHTML(e){
-  const meta=e.sizes?e.sizes.map(sizeLabel).join(" · "):(e.ev==="I"?"No se dosifica en unidades":"");
+  const meta=e.sizes?e.sizes.map(s=>sizeLabel(s,e)).join(" · "):(e.ev==="I"?"No se dosifica en unidades":"");
   return `<details class="card" id="${e.id}" data-s="${(e.name+" "+(e.aka||"")+" "+CATS[e.cat]).toLowerCase()}">
   <summary><span class="nm">${e.name}${e.aka?`<small>${e.aka}</small>`:""}</span><span class="meta">${meta}</span><span class="freq${e.freq&&e.ev!=="N"?"":" none"}">${e.freq||"Info"}</span></summary>
   <div class="body">${bodyHTML(e)}</div></details>`;
@@ -451,8 +467,8 @@ $("list").addEventListener("input",ev=>{
 });
 
 function noteText(e){
-  const c=calc(e), L=[(e.name+" "+sizeLabel(e.sizes[S[e.id].i])).toUpperCase(),""];
-  L.push("RECONSTITUCIÓN","Vial: "+sizeLabel(e.sizes[S[e.id].i]),"Agrega: "+trim(c.w,2)+" mL de agua bac.","Concentración: "+strengthText(e,c),"Deja caer el agua por la pared","Gira suave, no agites","Refrigerador, usar en 30 días","");
+  const c=calc(e), L=[(e.name+" "+sizeLabel(e.sizes[S[e.id].i],e)).toUpperCase(),""];
+  L.push("RECONSTITUCIÓN","Vial: "+sizeLabel(e.sizes[S[e.id].i],e),"Agrega: "+trim(c.w,2)+" mL de agua bac.","Concentración: "+strengthText(e,c),"Deja caer el agua por la pared","Gira suave, no agites","Refrigerador, usar en 30 días","");
   L.push("DOSIS (jeringa U-100)",keyText(e,c),...e.doses.map(d=>doseLabel(e,c,d)+" = "+uds(trim(d/c.unitMg,1))),"");
   if(e.sched) L.push("HORARIO ("+e.freq+")",...e.sched,"");
   L.push("NOTAS ("+EV[e.ev]+")",...e.notes.map(n=>"- "+n));

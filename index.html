@@ -164,13 +164,14 @@ pre.fallback{margin:0;padding:12px;background:var(--track);border-radius:12px;fo
   .key{font-size:1.12rem}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.legend .ev{justify-self:start}
 </style>
 
 </head>
 <body>
 <div class="wrap">
   <header>
-    <p class="eyebrow"><b>44 products</b><span>8 categories</span><span>U-100 syringe</span></p>
+    <p class="eyebrow"><b>49 products</b><span>8 categories</span><span>U-100 syringe</span></p>
     <h1>Reconstitution <em>&amp; Dosing Guide</em></h1>
     <p class="sub">Mixing amounts, syringe units and schedules in one place. Pick a vial, set the water, read the draw.</p>
     <div class="ruler" aria-hidden="true"><div class="bar2"></div><div class="lab"><span>0</span><span>25</span><span>50</span><span>75</span><span>100 units = 1 mL</span></div></div>
@@ -194,7 +195,7 @@ pre.fallback{margin:0;padding:12px;background:var(--track);border-radius:12px;fo
   </section>
 
   <div class="bar">
-    <input id="q" type="search" placeholder="Search 44 products" aria-label="Search products" autocomplete="off">
+    <input id="q" type="search" placeholder="Search 49 products" aria-label="Search products" autocomplete="off">
     <div class="chips" id="chips"></div>
   </div>
 
@@ -217,15 +218,15 @@ const BIO="A short \"bioregulator\" peptide from Russian research. No human tria
 /* sizes: [mg, mL water] or, for blends, [[mg per component], mL water]. doses are in mg of the first component. pw = doses per week. */
 const E=[
 /* ---------- Metabolic ---------- */
-{id:"retatrutide",cat:0,name:"Retatrutide",aka:"Sold as GLP-3RT",ev:"T",what:"Triple agonist (GLP-1, GIP, glucagon).",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[1,2,4,8,12],freq:"Weekly",pw:1,
+{id:"retatrutide",cat:0,name:"Retatrutide",aka:"Also labeled GLP-3RT",ev:"T",what:"Triple agonist (GLP-1, GIP, glucagon).",sizes:[[10,2],[15,3],[20,2],[30,3],[60,3]],doses:[1,2,4,8,12],freq:"Weekly",pw:1,
  sched:["One injection per week, same day each week","Start low: 1 to 2 mg","Step up about every 4 weeks as tolerated","Trial steps: 2, 4, 8, 12 mg"],
  notes:[GI,"The half-life is roughly 6 days, so it is never dosed daily."]},
-{id:"tirzepatide",cat:0,name:"Tirzepatide",aka:"Sold as GLP-2TZ",ev:"L",what:"Dual agonist (GLP-1, GIP). Same ingredient as Mounjaro and Zepbound.",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[2.5,5,7.5,10,12.5,15],freq:"Weekly",pw:1,
+{id:"tirzepatide",cat:0,name:"Tirzepatide",aka:"Also labeled GLP-2TZ",ev:"L",what:"Dual agonist (GLP-1, GIP). Same ingredient as Mounjaro and Zepbound.",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[2.5,5,7.5,10,12.5,15],freq:"Weekly",pw:1,
  sched:["One injection per week, same day each week","Start at 2.5 mg for 4 weeks","Step up 2.5 mg at a time, at least 4 weeks apart","Maximum 15 mg per week"],
  notes:[GI,"The label warns against use with a personal or family history of medullary thyroid cancer or MEN2."]},
-{id:"semaglutide",cat:0,name:"Semaglutide",aka:"Sold as GLP-1SG",ev:"L",what:"GLP-1 agonist. Same ingredient as Ozempic and Wegovy.",sizes:[[10,2],[15,3],[20,2],[30,3]],doses:[0.25,0.5,1,1.7,2.4],freq:"Weekly",pw:1,
+{id:"semaglutide",cat:0,name:"Semaglutide",aka:"Also labeled GLP-1SG",ev:"L",what:"GLP-1 agonist. Same ingredient as Ozempic and Wegovy.",sizes:[[10,2],[15,3],[20,2],[30,3]],doses:[0.25,0.5,1,1.7,2.4],freq:"Weekly",pw:1,
  sched:["One injection per week, same day each week","Start at 0.25 mg for 4 weeks","Then 0.5, 1, 1.7 and 2.4 mg, each for at least 4 weeks"],
- notes:["GLP-1SG is vendor shorthand. Confirm the ingredient on the COA.",GI,"The label warns against use with a personal or family history of medullary thyroid cancer or MEN2."]},
+ notes:[GI,"The label warns against use with a personal or family history of medullary thyroid cancer or MEN2."]},
 {id:"cagrilintide",cat:0,name:"Cagrilintide",ev:"T",what:"Long-acting amylin analog.",sizes:[[10,2]],doses:[0.3,0.6,1.2,2.4],freq:"Weekly",pw:1,
  sched:["One injection per week","Trials started at 0.3 mg and stepped up about every 4 weeks","2.4 mg weekly was the main trial dose, often paired with semaglutide"],
  notes:[GI]},
@@ -239,14 +240,14 @@ const E=[
  notes:["No human trials. It is mostly sold as oral capsules, usually 50 mg one to three times a day.","There is no established injectable dose. The calculator below is for the math only."]},
 {id:"slu-pp-332",cat:0,name:"SLU-PP-332",ev:"N",what:"Experimental \"exercise mimetic\" compound.",sizes:[[5,2]],doses:[],u:"mcg",freq:"No set dose",
  notes:["Animal studies only. No human dose exists, oral or injected."]},
-{id:"lipo-pure",cat:0,name:"Lipo Pure (MIC-B12)",ev:"I",what:"Methionine, inositol, choline and vitamin B12.",info:["The vendor does not list the amount of each ingredient or the fill volume, so units can't be worked out from the listing.","Clinic MIC-B12 is usually a ready-made liquid given as 1 mL once a week, into muscle.","Check the label before using any number."]},
-{id:"lemon-bottle",cat:0,name:"Lemon Bottle 10 mg",ev:"I",what:"Listed with no description or ingredients.",info:["Lemon Bottle is the brand name of a fat-dissolving solution that practitioners inject into fat pads. It is not a peptide dosed in syringe units.","The vendor page gives no contents or instructions. Don't mix or dose this without the label."]},
+{id:"lipo-pure",cat:0,name:"MIC Blend (Lipo-C + B12)",ev:"I",what:"Methionine, inositol, choline and vitamin B12.",info:["Ingredient amounts and fill volume vary by maker, so there is no single unit dose.","Clinic MIC-B12 is usually a ready-made liquid given as 1 mL once a week, into muscle.","Check the label before using any number."]},
+{id:"lemon-bottle",cat:0,name:"Lemon Bottle 10 mg",ev:"I",what:"Fat-dissolving solution, not a peptide.",info:["Lemon Bottle is the brand name of a fat-dissolving solution that practitioners inject into fat pads. It is not a peptide dosed in syringe units.","Don't mix or dose this without the label."]},
 
 /* ---------- Regenerative ---------- */
 {id:"bpc-157",cat:1,name:"BPC-157",ev:"C",what:"Peptide studied in animals for tendon, gut and soft-tissue repair.",sizes:[[5,2],[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
  sched:["250 to 500 mcg per day","Once daily, or split into two injections"],
  notes:["No human trial sets a dose. Starting at the low end is the conservative move."]},
-{id:"tb-500",cat:1,name:"TB-500",aka:"Thymosin beta-4",ev:"C",what:"Peptide studied for tissue repair and recovery.",sizes:[[10,2]],doses:[2,2.5,5],freq:"2x per week",pw:2,
+{id:"tb-500",cat:1,name:"TB-500",aka:"Thymosin beta-4",ev:"C",what:"Peptide studied for tissue repair and recovery.",sizes:[[5,1],[10,2]],doses:[2,2.5,5],freq:"2x per week",pw:2,
  sched:["Loading: 2 to 2.5 mg twice a week for 4 to 6 weeks","Then 2 to 2.5 mg every 1 to 2 weeks","Some take 5 mg once a week instead"],
  notes:["No human trial sets a dose."]},
 {id:"bpc-tb-blend",cat:1,name:"BPC-157 / TB-500 Blend",ev:"C",what:"Equal parts of both peptides in one vial.",comps:["BPC-157","TB-500"],sizes:[[[5,5],2],[[10,10],2]],doses:[0.25,0.5],freq:"Daily",pw:7,
@@ -255,19 +256,25 @@ const E=[
 {id:"ghk-cu",cat:1,name:"GHK-Cu",aka:"Copper peptide",ev:"C",what:"Copper-binding peptide used for skin and hair.",sizes:[[50,2.5],[100,5]],doses:[1,2],freq:"Daily",pw:7,
  sched:["1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
  notes:["It stings. Injecting slowly helps.","The blue colour is normal.","100 mg in 5 mL needs a large vial. If it won't fit, lower the water."]},
-{id:"glow",cat:1,name:"GLOW Blend",aka:"GHK-Cu / BPC-157 / TB-500, 70 mg",ev:"C",what:"Three-peptide skin and repair blend.",comps:["GHK-Cu","BPC-157","TB-500"],sizes:[[[50,10,10],3]],doses:[1,1.5,2],freq:"Daily",pw:7,
+{id:"glow",cat:1,name:"GLOW Stack",aka:"GHK-Cu / BPC-157 / TB-500",ev:"C",what:"Three-peptide skin and repair blend.",comps:["GHK-Cu","BPC-157","TB-500"],sizes:[[[50,10,10],3],[[100,5,5],5]],doses:[1,1.5,2],freq:"Daily",pw:7,
  sched:["Dosed by the GHK-Cu amount: 1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
- notes:["The vendor does not list the split. 50 / 10 / 10 mg is the usual 70 mg GLOW formula. Confirm it on the label or COA.","It stings because of the GHK-Cu. The blue colour is normal."]},
-{id:"klow",cat:1,name:"KLOW Blend",aka:"GHK-Cu / BPC-157 / TB-500 / KPV, 80 mg",ev:"C",what:"GLOW plus KPV.",comps:["GHK-Cu","BPC-157","TB-500","KPV"],sizes:[[[50,10,10,10],3]],doses:[1,1.5,2],freq:"Daily",pw:7,
+ notes:["Formulas differ, so pick the split printed on your vial. The 100 / 5 / 5 mg version carries much less BPC-157 and TB-500 per dose.","It stings because of the GHK-Cu. The blue colour is normal."]},
+{id:"klow",cat:1,name:"KLOW Blend (4-peptide)",aka:"GHK-Cu / BPC-157 / TB-500 / KPV, 80 mg",ev:"C",what:"GLOW plus KPV.",comps:["GHK-Cu","BPC-157","TB-500","KPV"],sizes:[[[50,10,10,10],3]],doses:[1,1.5,2],freq:"Daily",pw:7,
  sched:["Dosed by the GHK-Cu amount: 1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
- notes:["Sold as 80 mg (50 / 10 / 10 / 10). The vendor's lab report measured about 91 mg total, so real doses run a little higher.","It stings because of the GHK-Cu. The blue colour is normal."]},
+ notes:["This is the 80 mg, four-peptide version (50 / 10 / 10 / 10). The two-peptide KLOW Stack has its own entry.","It stings because of the GHK-Cu. The blue colour is normal."]},
+{id:"klow-stack",cat:1,name:"KLOW Stack",aka:"GHK-Cu 100 mg + KPV 10 mg",ev:"C",what:"Two-peptide skin and inflammation stack.",comps:["GHK-Cu","KPV"],sizes:[[[100,10],5]],doses:[1,1.5,2],freq:"Daily",pw:7,
+ sched:["Dosed by the GHK-Cu amount: 1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
+ notes:["5 mL needs a large vial. If it won't fit, lower the water.","It stings because of the GHK-Cu. The blue colour is normal."]},
+{id:"wolverine",cat:1,name:"Wolverine Stack",aka:"BPC-157 10 mg + TB-500 5 mg",ev:"C",what:"Two-peptide repair stack.",comps:["BPC-157","TB-500"],sizes:[[[10,5],2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["Dosed by the BPC-157 amount: 250 to 500 mcg per day","Once daily, or split into two injections"],
+ notes:["The ratio is fixed, so each draw carries half as much TB-500 as BPC-157."]},
 {id:"kpv",cat:1,name:"KPV",ev:"C",what:"Three-amino-acid fragment of alpha-MSH studied for inflammation.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
  sched:["250 to 500 mcg per day"],
  notes:["No human trial sets a dose."]},
 {id:"ara-290",cat:1,name:"ARA-290",aka:"Cibinetide",ev:"T",what:"Peptide studied for nerve pain and small-fiber neuropathy.",sizes:[[10,2]],doses:[2,4],freq:"Daily",pw:7,
  sched:["Phase 2 trials used 4 mg once a day for 28 days"],
  notes:["One 10 mg vial is only 2 to 5 doses."]},
-{id:"hulk",cat:1,name:"Hulk Blend",aka:"BPC-157 10 / TB-500 25 / KPV 10 mg",ev:"C",what:"Three-peptide repair blend. Out of stock when checked.",comps:["BPC-157","TB-500","KPV"],sizes:[[[10,25,10],2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+{id:"hulk",cat:1,name:"Hulk Blend",aka:"BPC-157 10 / TB-500 25 / KPV 10 mg",ev:"C",what:"Three-peptide repair blend.",comps:["BPC-157","TB-500","KPV"],sizes:[[[10,25,10],2]],doses:[0.25,0.5],freq:"Daily",pw:7,
  sched:["Dosed by the BPC-157 amount: 250 to 500 mcg per day"],
  notes:["The ratio is fixed, so each draw carries 2.5 times as much TB-500 as BPC-157."]},
 
@@ -281,16 +288,22 @@ const E=[
 {id:"cjc-ipamorelin",cat:2,name:"CJC-1295 / Ipamorelin",aka:"No DAC, 5 mg + 5 mg",ev:"C",what:"GHRH analog plus secretagogue in one vial.",comps:["CJC-1295","Ipamorelin"],sizes:[[[5,5],2]],doses:[0.1,0.2,0.3],freq:"Nightly",pw:5,
  sched:["Start at 100 mcg of each","Typical: 100 to 300 mcg of each","Once daily before bed, 2 to 3 hours after eating","Often 5 days on, 2 days off"],
  notes:["This vial is CJC-1295 without DAC. The \"with DAC\" version is dosed weekly, not daily.","A brief flush or head rush is common, as are water retention and tingling hands."]},
-{id:"tesa-ipa",cat:2,name:"Tesamorelin / Ipamorelin",ev:"I",what:"Two-peptide blend sold as 10 mg and 20 mg vials.",info:["The vendor does not say how much of each peptide is in the vial.","Without the split there is no way to work out units. Get it from the label or COA first."]},
+{id:"tesa-ipa",cat:2,name:"Tesamorelin / Ipamorelin",ev:"I",what:"Two-peptide blend sold as 10 mg and 20 mg vials.",info:["Blend ratios differ between makers.","Without the split there is no way to work out units. Get it from the label or COA first."]},
+{id:"sermorelin",cat:2,name:"Sermorelin",ev:"C",what:"GHRH analog. Formerly sold as the approved drug Geref, now discontinued.",sizes:[[5,2.5]],doses:[0.1,0.2,0.3],freq:"Nightly",pw:7,
+ sched:["200 to 300 mcg once a day","At bedtime, on an empty stomach","Many start at 100 mcg"],
+ notes:["A prescription drug in the US.","Flushing, headache and redness at the injection site are the common side effects."]},
+{id:"cjc-dac",cat:2,name:"CJC-1295 with DAC",ev:"C",what:"Long-acting GHRH analog. One injection lasts about a week.",sizes:[[5,2.5],[10,2.5]],doses:[1,2],freq:"Weekly",pw:1,
+ sched:["1 to 2 mg once a week","Never dosed daily"],
+ notes:["Not the same as the no-DAC version in the CJC-1295 / Ipamorelin blend, which is dosed nightly.","Clinical development stopped years ago and it was never approved.","Water retention, flushing and tingling hands are the common side effects."]},
 {id:"igf-1-lr3",cat:2,name:"IGF-1 LR3",ev:"C",what:"Long-acting analog of IGF-1.",sizes:[[1,2]],doses:[0.02,0.04,0.05],freq:"Daily",pw:7,
  sched:["20 to 50 mcg per day","Cycles are usually kept to about 4 weeks"],
  notes:["It can cause low blood sugar. Know the signs (shakiness, sweating, confusion) and keep fast carbs on hand.","It promotes growth in all tissue, which is the main long-term safety concern.","Some labels call for acetic acid instead of bac water. Follow the label."]},
-{id:"mk-677",cat:2,name:"MK-677 Capsule",aka:"Ibutamoren",ev:"I",what:"Oral growth hormone secretagogue. Out of stock when checked.",info:["Taken by mouth, so there is nothing to mix.","The vendor does not list mg per capsule. Check the bottle.","Trials used 25 mg once a day. Many people take 10 to 25 mg at night.","It raises appetite and can raise blood sugar and cause water retention."]},
+{id:"mk-677",cat:2,name:"MK-677 Capsule",aka:"Ibutamoren",ev:"I",what:"Oral growth hormone secretagogue.",info:["Taken by mouth, so there is nothing to mix.","Capsule strength varies. Check the bottle.","Trials used 25 mg once a day. Many people take 10 to 25 mg at night.","It raises appetite and can raise blood sugar and cause water retention."]},
 
 /* ---------- Longevity & mitochondrial ---------- */
-{id:"nad",cat:3,name:"NAD+",ev:"C",what:"Coenzyme, not a peptide.",sizes:[[500,5]],doses:[25,50,100],freq:"Daily or 2–3x per week",pw:3,
+{id:"nad",cat:3,name:"NAD+",ev:"C",what:"Coenzyme, not a peptide.",sizes:[[500,5],[1000,10]],doses:[25,50,100],freq:"Daily or 2–3x per week",pw:3,
  sched:["Start: 25 to 50 mg","Typical: 50 to 100 mg","Daily, or 2 to 3 times per week","Inject slowly"],
- notes:["Check the vial holds 5 mL. If not, lower the water.","It tends to sting and can cause flushing or nausea.","Keep it away from light. It degrades faster than most peptides once mixed."]},
+ notes:["Check the vial holds the water shown. If not, lower it.","It tends to sting and can cause flushing or nausea.","Keep it away from light. It degrades faster than most peptides once mixed."]},
 {id:"glutathione",cat:3,name:"Glutathione",ev:"C",what:"Antioxidant tripeptide.",sizes:[[1500,7.5]],doses:[50,100,200],freq:"2–3x per week",pw:3,
  sched:["Start: 50 to 100 mg","Typical: 100 to 200 mg","2 to 3 times per week, or a lower dose daily","Inject slowly"],
  notes:["7.5 mL needs a 10 mL vial.","The powder adds volume, so the real strength runs a bit under the number shown.","A sulfur smell is normal. Toss it if it turns yellow or cloudy."]},
@@ -307,10 +320,10 @@ const E=[
 {id:"cartalax",cat:3,name:"Cartalax",ev:"N",what:"Three-amino-acid peptide.",sizes:[[20,2]],doses:[],u:"mg",freq:"No set dose",notes:[BIO]},
 
 /* ---------- Cognitive & sleep ---------- */
-{id:"semax",cat:4,name:"N-Acetyl Semax",aka:"Sold as Na-Semax",ev:"C",what:"ACTH fragment analog used as a nootropic.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+{id:"semax",cat:4,name:"N-Acetyl Semax",aka:"Also labeled Na-Semax",ev:"C",what:"ACTH fragment analog used as a nootropic.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
  sched:["250 to 500 mcg once a day, usually in the morning"],
  notes:["Semax is approved in Russia as nasal drops, not as an injection. Injected doses are common practice only."]},
-{id:"selank",cat:4,name:"N-Acetyl Selank",aka:"Sold as Na-Selank",ev:"C",what:"Tuftsin analog used for anxiety and focus.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+{id:"selank",cat:4,name:"N-Acetyl Selank",aka:"Also labeled Na-Selank",ev:"C",what:"Tuftsin analog used for anxiety and focus.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
  sched:["250 to 500 mcg once a day"],
  notes:["Selank is approved in Russia as nasal drops, not as an injection. Injected doses are common practice only."]},
 {id:"dsip",cat:4,name:"DSIP",aka:"Delta sleep-inducing peptide",ev:"C",what:"Peptide used for sleep.",sizes:[[5,2.5],[10,2.5],[15,3]],doses:[0.1,0.2,0.3],freq:"Nightly",pw:7,
@@ -338,6 +351,9 @@ const E=[
 {id:"pt-141",cat:6,name:"PT-141",aka:"Bremelanotide",ev:"L",what:"Same ingredient as Vyleesi.",sizes:[[10,2]],doses:[1,1.75],freq:"As needed",
  sched:["1.75 mg at least 45 minutes beforehand","No more than one dose in 24 hours","No more than 8 doses a month"],
  notes:["Nausea is common, especially with the first dose.","It raises blood pressure for a few hours. The label says not to use it with uncontrolled high blood pressure or heart disease."]},
+{id:"hcg",cat:6,name:"HCG",aka:"Human chorionic gonadotropin",ev:"L",what:"Same hormone as Novarel and Pregnyl.",iu:true,u:"IU",sizes:[[5000,5]],doses:[250,500,1000],freq:"2–3x per week",pw:3,
+ sched:["Dosed in IU, not mg","Common alongside testosterone therapy: 500 IU two to three times a week","Doses for fertility and other approved uses are set by a prescriber"],
+ notes:["A prescription drug in the US.","It can raise estrogen. Breast tenderness and water retention are the usual signs."]},
 {id:"kisspeptin",cat:6,name:"Kisspeptin",ev:"N",what:"Hormone that triggers GnRH release.",sizes:[[10,2]],doses:[],u:"mcg",freq:"No set dose",
  notes:["Used in fertility research at weight-based doses given by clinicians. No self-injection dose is established."]},
 
@@ -347,9 +363,9 @@ const E=[
 
 const $=id=>document.getElementById(id);
 const trim=(x,d)=>String(parseFloat(x.toFixed(d)));
-const fmtDose=mg=>mg<1?trim(mg*1000,1)+" mcg":trim(mg,2)+" mg";
+const fmtDose=(mg,e)=>e&&e.iu?trim(mg,0)+" IU":mg<1?trim(mg*1000,1)+" mcg":trim(mg,2)+" mg";
 const mgs=s=>Array.isArray(s[0])?s[0]:[s[0]];
-const sizeLabel=s=>mgs(s).join(" / ")+" mg";
+const sizeLabel=(s,e)=>mgs(s).join(" / ")+(e&&e.iu?" IU":" mg");
 const equal=a=>a.every(x=>x===a[0]);
 const S={}; E.forEach(e=>{ if(e.sizes) S[e.id]={i:0,w:e.sizes[0][1]}; });
 const unitOf=e=>e.u||(e.doses.length&&Math.min(...e.doses)<1?"mcg":"mg");
@@ -372,7 +388,7 @@ function carried(e,c,d){
   return "Also carries "+c.a.slice(1).map((m,j)=>fmtDose(d*m/c.lead)+" "+e.comps[j+1]).join(", ")+". ";
 }
 function doseLabel(e,c,d){
-  if(!e.comps) return fmtDose(d);
+  if(!e.comps) return fmtDose(d,e);
   return fmtDose(d)+(equal(c.a)?" each":" "+e.comps[0]);
 }
 function rowHTML(e,c,d){
@@ -380,12 +396,12 @@ function rowHTML(e,c,d){
   return `<div class="dose"><span class="num">${doseLabel(e,c,d)}</span><span class="num u">${ut} units</span><span class="syr${u>100?" over":""}" role="img" aria-label="${ut} of 100 units"><i style="width:${Math.min(u,100)}%"></i></span><small>${carried(e,c,d)}${flags(e,c,d,u)}</small></div>`;
 }
 function strengthText(e,c){
-  if(!e.comps) return trim(c.lead/c.w,2)+" mg/mL";
+  if(!e.comps) return trim(c.lead/c.w,2)+(e.iu?" IU/mL":" mg/mL");
   if(equal(c.a)) return trim(c.lead/c.w,2)+" mg/mL each";
   return c.a.map((m,j)=>e.comps[j]+" "+trim(m/c.w,2)).join(" · ")+" mg/mL";
 }
 function keyText(e,c){
-  return "1 unit = "+fmtDose(c.unitMg)+(e.comps?(equal(c.a)?" of each":" "+e.comps[0]):"");
+  return "1 unit = "+fmtDose(c.unitMg,e)+(e.comps?(equal(c.a)?" of each":" "+e.comps[0]):"");
 }
 function update(e){
   const c=calc(e);
@@ -404,7 +420,7 @@ function bodyHTML(e){
   const st=S[e.id], u=unitOf(e);
   return `<div class="sec">${evline}</div>
   <div class="sec"><p class="label">Mix</p>
-    ${e.sizes.length>1?`<div class="ctl"><span>Vial</span><div class="seg">${e.sizes.map((s,i)=>`<button type="button" data-id="${e.id}" data-size="${i}" aria-pressed="${i===0}">${sizeLabel(s)}</button>`).join("")}</div></div>`:`<div class="ctl"><span>Vial</span><b class="num">${sizeLabel(e.sizes[0])}</b></div>`}
+    ${e.sizes.length>1?`<div class="ctl"><span>Vial</span><div class="seg">${e.sizes.map((s,i)=>`<button type="button" data-id="${e.id}" data-size="${i}" aria-pressed="${i===0}">${sizeLabel(s,e)}</button>`).join("")}</div></div>`:`<div class="ctl"><span>Vial</span><b class="num">${sizeLabel(e.sizes[0],e)}</b></div>`}
     <div class="ctl"><span>Bac water</span><div class="step"><button type="button" data-id="${e.id}" data-step="-0.5" aria-label="Less water">−</button><input type="number" id="w-${e.id}" data-id="${e.id}" data-water value="${st.w}" min="0.5" step="0.5" inputmode="decimal" aria-label="mL of bac water"><button type="button" data-id="${e.id}" data-step="0.5" aria-label="More water">+</button><span class="num">mL</span></div></div>
     <div class="ctl"><span>Strength</span><span class="strength" id="st-${e.id}"></span></div>
   </div>
@@ -420,7 +436,7 @@ function bodyHTML(e){
 }
 
 function cardHTML(e){
-  const meta=e.sizes?e.sizes.map(sizeLabel).join(" · "):(e.ev==="I"?"Not dosed by syringe units":"");
+  const meta=e.sizes?e.sizes.map(s=>sizeLabel(s,e)).join(" · "):(e.ev==="I"?"Not dosed by syringe units":"");
   return `<details class="card" id="${e.id}" data-s="${(e.name+" "+(e.aka||"")+" "+CATS[e.cat]).toLowerCase()}">
   <summary><span class="nm">${e.name}${e.aka?`<small>${e.aka}</small>`:""}</span><span class="meta">${meta}</span><span class="freq${e.freq&&e.ev!=="N"?"":" none"}">${e.freq||"Info"}</span></summary>
   <div class="body">${bodyHTML(e)}</div></details>`;
@@ -449,8 +465,8 @@ $("list").addEventListener("input",ev=>{
 });
 
 function noteText(e){
-  const c=calc(e), L=[(e.name+" "+sizeLabel(e.sizes[S[e.id].i])).toUpperCase(),""];
-  L.push("RECONSTITUTION","Vial: "+sizeLabel(e.sizes[S[e.id].i]),"Add: "+trim(c.w,2)+" mL bac water","Strength: "+strengthText(e,c),"Run water down the side","Swirl gently, don't shake","Fridge, use within 30 days","");
+  const c=calc(e), L=[(e.name+" "+sizeLabel(e.sizes[S[e.id].i],e)).toUpperCase(),""];
+  L.push("RECONSTITUTION","Vial: "+sizeLabel(e.sizes[S[e.id].i],e),"Add: "+trim(c.w,2)+" mL bac water","Strength: "+strengthText(e,c),"Run water down the side","Swirl gently, don't shake","Fridge, use within 30 days","");
   L.push("DOSING (U-100 syringe)",keyText(e,c),...e.doses.map(d=>doseLabel(e,c,d)+" = "+trim(d/c.unitMg,1)+" units"),"");
   if(e.sched) L.push("SCHEDULE ("+e.freq+")",...e.sched,"");
   L.push("NOTES ("+EV[e.ev]+")",...e.notes.map(n=>"- "+n));
