@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Reconstitution & Dosing Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one phone-first column. Sticky search + category chips, then the catalog as a grouped
+   menu of collapsed entries. Opening an entry gives a live mixing calculator: pick vial size and
+   water, and every dose is redrawn on a U-100 syringe scale. */
+:root{
+  --bg:#ECF1F3; --surface:#FFFFFF; --sunk:#F4F7F8; --ink:#13232D; --muted:#566974;
+  --line:#D2DCE1; --accent:#C8491A; --accent-soft:#FBE6DC; --fill:#2B6F8A; --track:#E3EAED;
+  --ok:#1F7A55; --ok-soft:#DDF1E7; --warn:#8A6100; --warn-soft:#FBEFC9;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E171C; --surface:#16222A; --sunk:#111C22; --ink:#E5EDF1; --muted:#90A3AE;
+    --line:#273741; --accent:#FF8B52; --accent-soft:#3A2218; --fill:#5FB3D1; --track:#22313A;
+    --ok:#6FD3A6; --ok-soft:#153427; --warn:#F0C766; --warn-soft:#3A2F10;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E171C; --surface:#16222A; --sunk:#111C22; --ink:#E5EDF1; --muted:#90A3AE;
+  --line:#273741; --accent:#FF8B52; --accent-soft:#3A2218; --fill:#5FB3D1; --track:#22313A;
+  --ok:#6FD3A6; --ok-soft:#153427; --warn:#F0C766; --warn-soft:#3A2F10;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
+.wrap{max-width:700px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
+h1{font-family:var(--display);font-weight:700;font-size:2rem;line-height:1.05;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:6px 0 0;font-size:.95rem}
+.label{font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.basics{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.basics ol,.basics ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px;font-size:.93rem}
+.legend{display:flex;flex-direction:column;gap:6px;font-size:.88rem;color:var(--muted)}
+.legend div{display:flex;gap:8px;align-items:baseline}
+.legend .ev{flex:none}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-block:-10px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+#q{width:100%;font:400 1rem var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+#q::placeholder{color:var(--muted)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--ink);text-decoration:none;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.group{display:flex;flex-direction:column;gap:8px;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 112px)}
+.group h2{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:6px 0 0;display:flex;justify-content:space-between;align-items:baseline}
+.group h2 span{font:500 .8rem var(--mono);color:var(--muted)}
+
+details.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 112px)}
+summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto 14px;align-items:center;gap:4px 10px;padding:12px 14px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);justify-self:center;margin-top:-4px}
+details[open]>summary::after{transform:rotate(-135deg);margin-top:4px}
+.nm{font-family:var(--display);font-weight:700;font-size:1.15rem;line-height:1.15;min-width:0}
+.nm small{display:block;font:400 .78rem var(--body);color:var(--muted);margin-top:2px}
+.meta{grid-column:1;font:400 .78rem var(--mono);color:var(--muted)}
+.freq{grid-column:2;grid-row:1 / span 2;font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:4px 8px;border-radius:6px;text-align:center;max-width:9.5em}
+summary::after{grid-column:3;grid-row:1 / span 2}
+.freq.none{color:var(--muted);background:var(--sunk)}
+
+.sec{padding:14px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.what{margin:0;font-size:.93rem}
+.ev{display:inline-block;font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.ev-L,.ev-T{color:var(--ok);background:var(--ok-soft)}
+.ev-C{color:var(--warn);background:var(--warn-soft)}
+.ev-N,.ev-I{color:var(--muted);background:var(--sunk);border:1px solid var(--line)}
+.evline{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctl>span{font-size:.85rem;color:var(--muted);min-width:4.2em}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+button{font:600 .9rem var(--display);letter-spacing:.02em;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{background:var(--sunk)}
+button[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.step{display:flex;align-items:center;gap:6px}
+.step button{width:38px;padding:7px 0;font-size:1.05rem}
+input[type=number]{width:5em;font:600 1rem var(--mono);color:var(--ink);background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:7px 8px;text-align:center}
+.strength{font:600 .95rem var(--mono);font-variant-numeric:tabular-nums}
+.key{font-family:var(--mono);font-weight:600;font-size:1.05rem;color:var(--accent)}
+.rows{display:flex;flex-direction:column;gap:10px}
+.sec{--c1:6.2rem;--c2:5.6rem;--g:10px}
+.sec.blend{--c1:9rem}
+.dose{display:grid;grid-template-columns:var(--c1) var(--c2) 1fr;align-items:center;gap:2px var(--g);font-size:.95rem}
+.dose .u{font-weight:600}
+.dose small{grid-column:1 / -1;font-size:.76rem;color:var(--muted)}
+.dose small b{color:var(--accent);font-weight:600}
+.syr{position:relative;height:14px;border-radius:3px;background:var(--track);overflow:hidden;min-width:0;
+  background-image:repeating-linear-gradient(to right,transparent 0,transparent calc(10% - 1px),var(--line) calc(10% - 1px),var(--line) 10%)}
+.syr i{position:absolute;inset:0 auto 0 0;background:var(--fill);min-width:3px;border-radius:3px 0 0 3px}
+.syr.over i{background:var(--accent)}
+.scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-left:calc(var(--c1) + var(--c2) + var(--g) + var(--g))}
+.custom{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.9rem;background:var(--sunk);border-radius:8px;padding:8px 10px}
+.custom output{font:600 .95rem var(--mono)}
+.body ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px}
+.body li{font-size:.93rem}
+.notes li{color:var(--muted);font-size:.9rem}
+.foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.foot button{border-color:var(--ink)}
+.ok{font-size:.85rem;color:var(--muted)}
+pre.fallback{margin:0;padding:12px;background:var(--sunk);border-radius:8px;font:400 .82rem/1.4 var(--mono);white-space:pre-wrap;user-select:all;-webkit-user-select:all}
+#empty{color:var(--muted);text-align:center;padding:24px 0;margin:0}
+.disc{font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;margin:0;display:flex;flex-direction:column;gap:8px}
+.disc p{margin:0}
+@media (max-width:420px){
+  .sec{--c1:5.3rem;--c2:5rem;--g:8px}
+  .dose{font-size:.9rem}
+  .sec.blend{--c1:8.4rem}
+}
+.lang{display:inline-block;margin-top:10px;font:600 .9rem var(--display);color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--surface)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Reconstitution &amp; Dosing Guide</h1>
+    <p class="sub">Every injectable in the True Peptide Labs catalog, as listed on 9 Oct 2026. All draws are for a U-100 insulin syringe (100 units = 1 mL).</p>
+  <a class="lang" href="es.html">Ver en español</a>
+  </header>
+
+  <section class="basics">
+    <p class="label">Mixing, every vial</p>
+    <ol>
+      <li>Run the bac water slowly down the inside wall of the vial.</li>
+      <li>Swirl gently. Don't shake.</li>
+      <li>Store in the fridge and use within about 30 days.</li>
+    </ol>
+    <p class="label" style="margin-top:4px">Where each dose comes from</p>
+    <div class="legend">
+      <div><span class="ev ev-L">Label dose</span><span>Taken from an approved drug with the same ingredient.</span></div>
+      <div><span class="ev ev-T">Trial dose</span><span>Used in clinical trials. Still investigational.</span></div>
+      <div><span class="ev ev-C">Common practice</span><span>What people commonly use. No trial sets this dose.</span></div>
+      <div><span class="ev ev-N">No reliable dose</span><span>Mixing math only.</span></div>
+    </div>
+  </section>
+
+  <div class="bar">
+    <input id="q" type="search" placeholder="Search 44 products" aria-label="Search products" autocomplete="off">
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div id="list" style="display:flex;flex-direction:column;gap:18px"></div>
+  <p id="empty" hidden>No product matches that search.</p>
+
+  <div class="disc">
+    <p>These vials are sold for research use only. They are not approved drugs, even where the dose shown comes from an approved drug with the same ingredient. Ranges marked common practice are not clinically established. None of this is medical advice.</p>
+    <p>Water amounts are suggestions that keep the math simple. If a vial won't hold the amount shown, lower the water and the units update.</p>
+    <p>Left out because they aren't dosed by syringe: soaps, bath bombs, shampoo and conditioner, creams and serums, apparel, the bundle kit, and supplies (bac water, acetic acid, syringes).</p>
+  </div>
+</div>
+
+<script>
+const CATS=["Metabolic","Regenerative","Growth hormone","Longevity & mitochondrial","Cognitive & sleep","Immune","Melanocortin & hormonal","Skin"];
+const EV={L:"Label dose",T:"Trial dose",C:"Common practice",N:"No reliable dose",I:"Info only"};
+const GI="Nausea, vomiting and constipation are the usual side effects, and they limit how fast people step up.";
+const BIO="A short \"bioregulator\" peptide from Russian research. No human trial sets an injectable dose.";
+
+/* sizes: [mg, mL water] or, for blends, [[mg per component], mL water]. doses are in mg of the first component. pw = doses per week. */
+const E=[
+/* ---------- Metabolic ---------- */
+{id:"retatrutide",cat:0,name:"Retatrutide",aka:"Sold as GLP-3RT",ev:"T",what:"Triple agonist (GLP-1, GIP, glucagon).",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[1,2,4,8,12],freq:"Weekly",pw:1,
+ sched:["One injection per week, same day each week","Start low: 1 to 2 mg","Step up about every 4 weeks as tolerated","Trial steps: 2, 4, 8, 12 mg"],
+ notes:[GI,"The half-life is roughly 6 days, so it is never dosed daily."]},
+{id:"tirzepatide",cat:0,name:"Tirzepatide",aka:"Sold as GLP-2TZ",ev:"L",what:"Dual agonist (GLP-1, GIP). Same ingredient as Mounjaro and Zepbound.",sizes:[[10,2],[15,3],[30,3],[60,3]],doses:[2.5,5,7.5,10,12.5,15],freq:"Weekly",pw:1,
+ sched:["One injection per week, same day each week","Start at 2.5 mg for 4 weeks","Step up 2.5 mg at a time, at least 4 weeks apart","Maximum 15 mg per week"],
+ notes:[GI,"The label warns against use with a personal or family history of medullary thyroid cancer or MEN2."]},
+{id:"semaglutide",cat:0,name:"Semaglutide",aka:"Sold as GLP-1SG",ev:"L",what:"GLP-1 agonist. Same ingredient as Ozempic and Wegovy.",sizes:[[10,2],[15,3],[20,2],[30,3]],doses:[0.25,0.5,1,1.7,2.4],freq:"Weekly",pw:1,
+ sched:["One injection per week, same day each week","Start at 0.25 mg for 4 weeks","Then 0.5, 1, 1.7 and 2.4 mg, each for at least 4 weeks"],
+ notes:["GLP-1SG is vendor shorthand. Confirm the ingredient on the COA.",GI,"The label warns against use with a personal or family history of medullary thyroid cancer or MEN2."]},
+{id:"cagrilintide",cat:0,name:"Cagrilintide",ev:"T",what:"Long-acting amylin analog.",sizes:[[10,2]],doses:[0.3,0.6,1.2,2.4],freq:"Weekly",pw:1,
+ sched:["One injection per week","Trials started at 0.3 mg and stepped up about every 4 weeks","2.4 mg weekly was the main trial dose, often paired with semaglutide"],
+ notes:[GI]},
+{id:"survodutide",cat:0,name:"Survodutide",ev:"T",what:"Dual agonist (GLP-1, glucagon).",sizes:[[10,2]],doses:[0.3,0.6,1.2,2.4,3.6,4.8],freq:"Weekly",pw:1,
+ sched:["One injection per week","Trials started low and stepped up over about 20 weeks","Phase 2 doses ran from 0.6 to 4.8 mg weekly"],
+ notes:[GI]},
+{id:"aod-9604",cat:0,name:"AOD-9604",ev:"C",what:"Fragment of growth hormone studied for fat loss.",sizes:[[5,2]],doses:[0.25,0.3,0.5],freq:"Daily",pw:7,
+ sched:["300 mcg once a day is the usual figure","Morning, on an empty stomach"],
+ notes:["Human weight-loss trials used an oral form and did not show a clear benefit."]},
+{id:"5-amino-1mq",cat:0,name:"5-Amino-1MQ",ev:"N",what:"Small molecule (NNMT inhibitor), not a peptide.",sizes:[[5,1],[10,2],[50,2.5]],doses:[],u:"mg",freq:"No set dose",
+ notes:["No human trials. It is mostly sold as oral capsules, usually 50 mg one to three times a day.","There is no established injectable dose. The calculator below is for the math only."]},
+{id:"slu-pp-332",cat:0,name:"SLU-PP-332",ev:"N",what:"Experimental \"exercise mimetic\" compound.",sizes:[[5,2]],doses:[],u:"mcg",freq:"No set dose",
+ notes:["Animal studies only. No human dose exists, oral or injected."]},
+{id:"lipo-pure",cat:0,name:"Lipo Pure (MIC-B12)",ev:"I",what:"Methionine, inositol, choline and vitamin B12.",info:["The vendor does not list the amount of each ingredient or the fill volume, so units can't be worked out from the listing.","Clinic MIC-B12 is usually a ready-made liquid given as 1 mL once a week, into muscle.","Check the label before using any number."]},
+{id:"lemon-bottle",cat:0,name:"Lemon Bottle 10 mg",ev:"I",what:"Listed with no description or ingredients.",info:["Lemon Bottle is the brand name of a fat-dissolving solution that practitioners inject into fat pads. It is not a peptide dosed in syringe units.","The vendor page gives no contents or instructions. Don't mix or dose this without the label."]},
+
+/* ---------- Regenerative ---------- */
+{id:"bpc-157",cat:1,name:"BPC-157",ev:"C",what:"Peptide studied in animals for tendon, gut and soft-tissue repair.",sizes:[[5,2],[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["250 to 500 mcg per day","Once daily, or split into two injections"],
+ notes:["No human trial sets a dose. Starting at the low end is the conservative move."]},
+{id:"tb-500",cat:1,name:"TB-500",aka:"Thymosin beta-4",ev:"C",what:"Peptide studied for tissue repair and recovery.",sizes:[[10,2]],doses:[2,2.5,5],freq:"2x per week",pw:2,
+ sched:["Loading: 2 to 2.5 mg twice a week for 4 to 6 weeks","Then 2 to 2.5 mg every 1 to 2 weeks","Some take 5 mg once a week instead"],
+ notes:["No human trial sets a dose."]},
+{id:"bpc-tb-blend",cat:1,name:"BPC-157 / TB-500 Blend",ev:"C",what:"Equal parts of both peptides in one vial.",comps:["BPC-157","TB-500"],sizes:[[[5,5],2],[[10,10],2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["250 to 500 mcg of each per day","Once daily, or split into two injections"],
+ notes:["A blend fixes the ratio, so TB-500 ends up dosed daily here instead of twice a week."]},
+{id:"ghk-cu",cat:1,name:"GHK-Cu",aka:"Copper peptide",ev:"C",what:"Copper-binding peptide used for skin and hair.",sizes:[[50,2.5],[100,5]],doses:[1,2],freq:"Daily",pw:7,
+ sched:["1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
+ notes:["It stings. Injecting slowly helps.","The blue colour is normal.","100 mg in 5 mL needs a large vial. If it won't fit, lower the water."]},
+{id:"glow",cat:1,name:"GLOW Blend",aka:"GHK-Cu / BPC-157 / TB-500, 70 mg",ev:"C",what:"Three-peptide skin and repair blend.",comps:["GHK-Cu","BPC-157","TB-500"],sizes:[[[50,10,10],3]],doses:[1,1.5,2],freq:"Daily",pw:7,
+ sched:["Dosed by the GHK-Cu amount: 1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
+ notes:["The vendor does not list the split. 50 / 10 / 10 mg is the usual 70 mg GLOW formula. Confirm it on the label or COA.","It stings because of the GHK-Cu. The blue colour is normal."]},
+{id:"klow",cat:1,name:"KLOW Blend",aka:"GHK-Cu / BPC-157 / TB-500 / KPV, 80 mg",ev:"C",what:"GLOW plus KPV.",comps:["GHK-Cu","BPC-157","TB-500","KPV"],sizes:[[[50,10,10,10],3]],doses:[1,1.5,2],freq:"Daily",pw:7,
+ sched:["Dosed by the GHK-Cu amount: 1 to 2 mg per day","Often run 5 days a week, in cycles of 4 to 6 weeks"],
+ notes:["Sold as 80 mg (50 / 10 / 10 / 10). The vendor's lab report measured about 91 mg total, so real doses run a little higher.","It stings because of the GHK-Cu. The blue colour is normal."]},
+{id:"kpv",cat:1,name:"KPV",ev:"C",what:"Three-amino-acid fragment of alpha-MSH studied for inflammation.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["250 to 500 mcg per day"],
+ notes:["No human trial sets a dose."]},
+{id:"ara-290",cat:1,name:"ARA-290",aka:"Cibinetide",ev:"T",what:"Peptide studied for nerve pain and small-fiber neuropathy.",sizes:[[10,2]],doses:[2,4],freq:"Daily",pw:7,
+ sched:["Phase 2 trials used 4 mg once a day for 28 days"],
+ notes:["One 10 mg vial is only 2 to 5 doses."]},
+{id:"hulk",cat:1,name:"Hulk Blend",aka:"BPC-157 10 / TB-500 25 / KPV 10 mg",ev:"C",what:"Three-peptide repair blend. Out of stock when checked.",comps:["BPC-157","TB-500","KPV"],sizes:[[[10,25,10],2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["Dosed by the BPC-157 amount: 250 to 500 mcg per day"],
+ notes:["The ratio is fixed, so each draw carries 2.5 times as much TB-500 as BPC-157."]},
+
+/* ---------- Growth hormone ---------- */
+{id:"tesamorelin",cat:2,name:"Tesamorelin",ev:"L",what:"GHRH analog. Same ingredient as Egrifta.",sizes:[[10,2],[20,2]],doses:[1,2],freq:"Daily",pw:7,
+ sched:["Approved dose is 2 mg once a day","Many start at 1 mg","Usually at bedtime, on an empty stomach"],
+ notes:["It can raise blood sugar and IGF-1.","Joint pain and swelling in the hands or feet are the common side effects."]},
+{id:"ipamorelin",cat:2,name:"Ipamorelin",ev:"C",what:"Growth hormone secretagogue.",sizes:[[10,3]],doses:[0.1,0.2,0.3],freq:"Nightly",pw:7,
+ sched:["100 to 300 mcg per injection","Usually once before bed, 2 to 3 hours after eating","Some use 2 to 3 injections a day"],
+ notes:["A brief flush or head rush after injecting is common."]},
+{id:"cjc-ipamorelin",cat:2,name:"CJC-1295 / Ipamorelin",aka:"No DAC, 5 mg + 5 mg",ev:"C",what:"GHRH analog plus secretagogue in one vial.",comps:["CJC-1295","Ipamorelin"],sizes:[[[5,5],2]],doses:[0.1,0.2,0.3],freq:"Nightly",pw:5,
+ sched:["Start at 100 mcg of each","Typical: 100 to 300 mcg of each","Once daily before bed, 2 to 3 hours after eating","Often 5 days on, 2 days off"],
+ notes:["This vial is CJC-1295 without DAC. The \"with DAC\" version is dosed weekly, not daily.","A brief flush or head rush is common, as are water retention and tingling hands."]},
+{id:"tesa-ipa",cat:2,name:"Tesamorelin / Ipamorelin",ev:"I",what:"Two-peptide blend sold as 10 mg and 20 mg vials.",info:["The vendor does not say how much of each peptide is in the vial.","Without the split there is no way to work out units. Get it from the label or COA first."]},
+{id:"igf-1-lr3",cat:2,name:"IGF-1 LR3",ev:"C",what:"Long-acting analog of IGF-1.",sizes:[[1,2]],doses:[0.02,0.04,0.05],freq:"Daily",pw:7,
+ sched:["20 to 50 mcg per day","Cycles are usually kept to about 4 weeks"],
+ notes:["It can cause low blood sugar. Know the signs (shakiness, sweating, confusion) and keep fast carbs on hand.","It promotes growth in all tissue, which is the main long-term safety concern.","Some labels call for acetic acid instead of bac water. Follow the label."]},
+{id:"mk-677",cat:2,name:"MK-677 Capsule",aka:"Ibutamoren",ev:"I",what:"Oral growth hormone secretagogue. Out of stock when checked.",info:["Taken by mouth, so there is nothing to mix.","The vendor does not list mg per capsule. Check the bottle.","Trials used 25 mg once a day. Many people take 10 to 25 mg at night.","It raises appetite and can raise blood sugar and cause water retention."]},
+
+/* ---------- Longevity & mitochondrial ---------- */
+{id:"nad",cat:3,name:"NAD+",ev:"C",what:"Coenzyme, not a peptide.",sizes:[[500,5]],doses:[25,50,100],freq:"Daily or 2–3x per week",pw:3,
+ sched:["Start: 25 to 50 mg","Typical: 50 to 100 mg","Daily, or 2 to 3 times per week","Inject slowly"],
+ notes:["Check the vial holds 5 mL. If not, lower the water.","It tends to sting and can cause flushing or nausea.","Keep it away from light. It degrades faster than most peptides once mixed."]},
+{id:"glutathione",cat:3,name:"Glutathione",ev:"C",what:"Antioxidant tripeptide.",sizes:[[1500,7.5]],doses:[50,100,200],freq:"2–3x per week",pw:3,
+ sched:["Start: 50 to 100 mg","Typical: 100 to 200 mg","2 to 3 times per week, or a lower dose daily","Inject slowly"],
+ notes:["7.5 mL needs a 10 mL vial.","The powder adds volume, so the real strength runs a bit under the number shown.","A sulfur smell is normal. Toss it if it turns yellow or cloudy."]},
+{id:"mots-c",cat:3,name:"MOTS-c",ev:"C",what:"Mitochondrial-derived peptide.",sizes:[[10,1],[40,2]],doses:[5,10],freq:"2–3x per week",pw:2,
+ sched:["5 mg two to three times a week, or 10 mg once a week","Often run in cycles of 4 to 8 weeks"],
+ notes:["No human trial sets a dose.","A 10 mg vial is only 1 to 2 doses."]},
+{id:"ss-31",cat:3,name:"SS-31",aka:"Elamipretide",ev:"T",what:"Mitochondria-targeted peptide.",sizes:[[10,1],[50,2.5]],doses:[5,10,20,40],freq:"Daily",pw:7,
+ sched:["Trials of elamipretide used 40 mg once a day","Common practice uses far less, often 5 to 20 mg a day"],
+ notes:["Redness and itching at the injection site were the most common trial side effects.","The 40 mg trial dose takes more than one syringe at these strengths."]},
+{id:"epithalon",cat:3,name:"Epithalon",aka:"Also spelled Epitalon",ev:"C",what:"Four-amino-acid peptide from Russian longevity research.",sizes:[[10,1],[50,2.5]],doses:[5,10],freq:"Daily, in cycles",pw:7,
+ sched:["5 to 10 mg a day for 10 to 20 days","The cycle is usually repeated once or twice a year"],
+ notes:["Based on small Russian studies, not modern trials."]},
+{id:"pinealon",cat:3,name:"Pinealon",ev:"N",what:"Three-amino-acid peptide.",sizes:[[10,2]],doses:[],u:"mg",freq:"No set dose",notes:[BIO]},
+{id:"cartalax",cat:3,name:"Cartalax",ev:"N",what:"Three-amino-acid peptide.",sizes:[[20,2]],doses:[],u:"mg",freq:"No set dose",notes:[BIO]},
+
+/* ---------- Cognitive & sleep ---------- */
+{id:"semax",cat:4,name:"N-Acetyl Semax",aka:"Sold as Na-Semax",ev:"C",what:"ACTH fragment analog used as a nootropic.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["250 to 500 mcg once a day, usually in the morning"],
+ notes:["Semax is approved in Russia as nasal drops, not as an injection. Injected doses are common practice only."]},
+{id:"selank",cat:4,name:"N-Acetyl Selank",aka:"Sold as Na-Selank",ev:"C",what:"Tuftsin analog used for anxiety and focus.",sizes:[[10,2]],doses:[0.25,0.5],freq:"Daily",pw:7,
+ sched:["250 to 500 mcg once a day"],
+ notes:["Selank is approved in Russia as nasal drops, not as an injection. Injected doses are common practice only."]},
+{id:"dsip",cat:4,name:"DSIP",aka:"Delta sleep-inducing peptide",ev:"C",what:"Peptide used for sleep.",sizes:[[5,2.5],[10,2.5],[15,3]],doses:[0.1,0.2,0.3],freq:"Nightly",pw:7,
+ sched:["100 to 300 mcg, 1 to 3 hours before bed","Often used a few nights a week, not every night"],
+ notes:["No human trial sets a dose."]},
+{id:"oxytocin",cat:4,name:"Oxytocin",ev:"N",what:"Hormone. Approved for use in labor, in hospital.",sizes:[[2,2],[5,2]],doses:[],u:"mcg",freq:"No set dose",
+ notes:["Medical oxytocin is dosed in IU, not mg. The mg-to-IU conversion for a research vial isn't reliable, so no unit dose is listed.","Studies outside of labor mostly use a nasal spray."]},
+{id:"vip",cat:4,name:"VIP",aka:"Vasoactive intestinal peptide",ev:"N",what:"Peptide hormone.",sizes:[[5,2]],doses:[],u:"mcg",freq:"No set dose",
+ notes:["Used clinically as a compounded nasal spray (50 mcg, up to four times a day), not as an injection.","No injectable dose is established."]},
+
+/* ---------- Immune ---------- */
+{id:"thymosin-alpha-1",cat:5,name:"Thymosin Alpha-1",ev:"L",what:"Immune-modulating peptide. Same ingredient as Zadaxin, approved outside the US.",sizes:[[10,2]],doses:[1.6],freq:"2x per week",pw:2,
+ sched:["1.6 mg twice a week, 3 to 4 days apart"],
+ notes:["Not FDA-approved in the US."]},
+{id:"ll-37",cat:5,name:"LL-37",ev:"N",what:"Antimicrobial peptide.",sizes:[[5,2]],doses:[],u:"mcg",freq:"No set dose",
+ notes:["No human trial sets an injectable dose.","It can irritate tissue at the injection site."]},
+
+/* ---------- Melanocortin & hormonal ---------- */
+{id:"melanotan-1",cat:6,name:"Melanotan I",aka:"Afamelanotide",ev:"C",what:"Tanning peptide.",sizes:[[10,2]],doses:[0.5,1],freq:"Daily, then weekly",pw:7,
+ sched:["0.5 to 1 mg a day until the desired tan","Then 1 to 2 times a week to maintain"],
+ notes:["The approved form (Scenesse) is a 16 mg implant for a rare light-sensitivity disorder, not a self-injection.","It can darken moles and freckles. Get any changing mole checked."]},
+{id:"melanotan-2",cat:6,name:"Melanotan II",ev:"C",what:"Tanning peptide that also affects appetite and libido.",sizes:[[10,2]],doses:[0.1,0.25,0.5],freq:"Daily, then weekly",pw:7,
+ sched:["Start at 100 to 250 mcg to test for nausea","Loading: up to 500 mcg a day","Then 1 to 2 times a week to maintain"],
+ notes:["Nausea, flushing and spontaneous erections are common.","It darkens moles and freckles, and regulators in several countries warn against using it. Get any changing mole checked."]},
+{id:"pt-141",cat:6,name:"PT-141",aka:"Bremelanotide",ev:"L",what:"Same ingredient as Vyleesi.",sizes:[[10,2]],doses:[1,1.75],freq:"As needed",
+ sched:["1.75 mg at least 45 minutes beforehand","No more than one dose in 24 hours","No more than 8 doses a month"],
+ notes:["Nausea is common, especially with the first dose.","It raises blood pressure for a few hours. The label says not to use it with uncontrolled high blood pressure or heart disease."]},
+{id:"kisspeptin",cat:6,name:"Kisspeptin",ev:"N",what:"Hormone that triggers GnRH release.",sizes:[[10,2]],doses:[],u:"mcg",freq:"No set dose",
+ notes:["Used in fertility research at weight-based doses given by clinicians. No self-injection dose is established."]},
+
+/* ---------- Skin ---------- */
+{id:"snap-8",cat:7,name:"Snap-8",aka:"Acetyl octapeptide-3",ev:"I",what:"Cosmetic peptide for expression lines.",info:["A topical ingredient for creams and serums, typically at 3 to 10 percent.","It is not meant for injection, so there is no syringe dose."]}
+];
+
+const $=id=>document.getElementById(id);
+const trim=(x,d)=>String(parseFloat(x.toFixed(d)));
+const fmtDose=mg=>mg<1?trim(mg*1000,1)+" mcg":trim(mg,2)+" mg";
+const mgs=s=>Array.isArray(s[0])?s[0]:[s[0]];
+const sizeLabel=s=>mgs(s).join(" / ")+" mg";
+const equal=a=>a.every(x=>x===a[0]);
+const S={}; E.forEach(e=>{ if(e.sizes) S[e.id]={i:0,w:e.sizes[0][1]}; });
+const unitOf=e=>e.u||(e.doses.length&&Math.min(...e.doses)<1?"mcg":"mg");
+
+function calc(e){
+  const st=S[e.id], a=mgs(e.sizes[st.i]), w=st.w>0?st.w:e.sizes[st.i][1];
+  return {a,w,lead:a[0],unitMg:a[0]/w/100};
+}
+function flags(e,c,d,u){
+  const out=[], n=Math.floor(c.lead/d+1e-9);
+  if(u>100) out.push("<b>More than one full syringe. Use less water or split the dose.</b>");
+  else if(u<2.5) out.push("<b>Too small to measure well. Add more water.</b>");
+  out.push(n<1?"<b>More than the vial holds</b>":n+(n===1?" dose":" doses")+" per vial");
+  if(e.pw&&n/e.pw>4.4) out.push("outlasts 30 days once mixed");
+  return out.join(" · ");
+}
+function carried(e,c,d){
+  if(!e.comps) return "";
+  if(equal(c.a)) return "";
+  return "Also carries "+c.a.slice(1).map((m,j)=>fmtDose(d*m/c.lead)+" "+e.comps[j+1]).join(", ")+". ";
+}
+function doseLabel(e,c,d){
+  if(!e.comps) return fmtDose(d);
+  return fmtDose(d)+(equal(c.a)?" each":" "+e.comps[0]);
+}
+function rowHTML(e,c,d){
+  const u=d/c.unitMg, ut=trim(u,1);
+  return `<div class="dose"><span class="num">${doseLabel(e,c,d)}</span><span class="num u">${ut} units</span><span class="syr${u>100?" over":""}" role="img" aria-label="${ut} of 100 units"><i style="width:${Math.min(u,100)}%"></i></span><small>${carried(e,c,d)}${flags(e,c,d,u)}</small></div>`;
+}
+function strengthText(e,c){
+  if(!e.comps) return trim(c.lead/c.w,2)+" mg/mL";
+  if(equal(c.a)) return trim(c.lead/c.w,2)+" mg/mL each";
+  return c.a.map((m,j)=>e.comps[j]+" "+trim(m/c.w,2)).join(" · ")+" mg/mL";
+}
+function keyText(e,c){
+  return "1 unit = "+fmtDose(c.unitMg)+(e.comps?(equal(c.a)?" of each":" "+e.comps[0]):"");
+}
+function update(e){
+  const c=calc(e);
+  $("st-"+e.id).textContent=strengthText(e,c);
+  $("k-"+e.id).textContent=keyText(e,c);
+  $("r-"+e.id).innerHTML=e.doses.map(d=>rowHTML(e,c,d)).join("");
+  document.querySelectorAll(`#${CSS.escape(e.id)} [data-size]`).forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.size===S[e.id].i)));
+  const v=parseFloat($("c-"+e.id).value), out=$("co-"+e.id);
+  if(v>0){const d=unitOf(e)==="mcg"?v/1000:v,u=d/c.unitMg;out.innerHTML="= "+trim(u,1)+" units <small style=\"font:400 .76rem var(--body);color:var(--muted)\">"+flags(e,c,d,u).replace(/<\/?b>/g,"")+"</small>";}
+  else out.textContent="";
+}
+
+function bodyHTML(e){
+  const evline=`<div class="evline"><span class="ev ev-${e.ev}">${EV[e.ev]}</span><span>${e.what}</span></div>`;
+  if(e.ev==="I") return `<div class="sec">${evline}<ul>${e.info.map(s=>`<li>${s}</li>`).join("")}</ul></div>`;
+  const st=S[e.id], u=unitOf(e);
+  return `<div class="sec">${evline}</div>
+  <div class="sec"><p class="label">Mix</p>
+    ${e.sizes.length>1?`<div class="ctl"><span>Vial</span><div class="seg">${e.sizes.map((s,i)=>`<button type="button" data-id="${e.id}" data-size="${i}" aria-pressed="${i===0}">${sizeLabel(s)}</button>`).join("")}</div></div>`:`<div class="ctl"><span>Vial</span><b class="num">${sizeLabel(e.sizes[0])}</b></div>`}
+    <div class="ctl"><span>Bac water</span><div class="step"><button type="button" data-id="${e.id}" data-step="-0.5" aria-label="Less water">−</button><input type="number" id="w-${e.id}" data-id="${e.id}" data-water value="${st.w}" min="0.5" step="0.5" inputmode="decimal" aria-label="mL of bac water"><button type="button" data-id="${e.id}" data-step="0.5" aria-label="More water">+</button><span class="num">mL</span></div></div>
+    <div class="ctl"><span>Strength</span><span class="strength" id="st-${e.id}"></span></div>
+  </div>
+  <div class="sec${e.comps&&!equal(mgs(e.sizes[0]))?" blend":""}"><p class="label">Draw</p>
+    <div class="key" id="k-${e.id}"></div>
+    <div class="rows" id="r-${e.id}"></div>
+    ${e.doses.length?`<div class="scale" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div>`:""}
+    <div class="custom"><label for="c-${e.id}">${e.doses.length?"Other dose":"Work out a dose"}</label><input type="number" id="c-${e.id}" data-id="${e.id}" data-custom min="0" step="any" inputmode="decimal" placeholder="0"><span class="num">${u}${e.comps?(equal(mgs(e.sizes[0]))?" each":" "+e.comps[0]):""}</span><output id="co-${e.id}"></output></div>
+  </div>
+  ${e.sched?`<div class="sec"><p class="label">Schedule</p><ul>${e.sched.map(s=>`<li>${s}</li>`).join("")}</ul></div>`:""}
+  <div class="sec"><p class="label">Keep in mind</p><ul class="notes">${e.notes.map(s=>`<li>${s}</li>`).join("")}</ul></div>
+  <div class="sec"><div class="foot"><button type="button" data-id="${e.id}" data-copy>Copy as note</button><span class="ok" id="ok-${e.id}" role="status"></span></div><pre class="fallback" id="fb-${e.id}" hidden></pre></div>`;
+}
+
+function cardHTML(e){
+  const meta=e.sizes?e.sizes.map(sizeLabel).join(" · "):(e.ev==="I"?"Not dosed by syringe units":"");
+  return `<details class="card" id="${e.id}" data-s="${(e.name+" "+(e.aka||"")+" "+CATS[e.cat]).toLowerCase()}">
+  <summary><span class="nm">${e.name}${e.aka?`<small>${e.aka}</small>`:""}</span><span class="meta">${meta}</span><span class="freq${e.freq&&e.ev!=="N"?"":" none"}">${e.freq||"Info"}</span></summary>
+  <div class="body">${bodyHTML(e)}</div></details>`;
+}
+
+$("chips").innerHTML=CATS.map((c,i)=>`<a href="#cat-${i}">${c}</a>`).join("");
+$("list").innerHTML=CATS.map((c,i)=>{const items=E.filter(e=>e.cat===i);
+  return `<section class="group" id="cat-${i}"><h2>${c}<span>${items.length}</span></h2>${items.map(cardHTML).join("")}</section>`;}).join("");
+E.forEach(e=>{ if(e.sizes) update(e); });
+
+const byId=id=>E.find(e=>e.id===id);
+function setWater(e,w){ if(!(w>0)) return; S[e.id].w=Math.round(w*100)/100; update(e); }
+
+$("list").addEventListener("click",ev=>{
+  const b=ev.target.closest("button[data-id]"); if(!b) return;
+  const e=byId(b.dataset.id);
+  if(b.dataset.size!==undefined){ S[e.id].i=+b.dataset.size; S[e.id].w=e.sizes[S[e.id].i][1]; $("w-"+e.id).value=S[e.id].w; update(e); }
+  else if(b.dataset.step!==undefined){ const w=Math.max(0.5,S[e.id].w+parseFloat(b.dataset.step)); $("w-"+e.id).value=w; setWater(e,w); }
+  else if(b.dataset.copy!==undefined) copyNote(e);
+});
+$("list").addEventListener("input",ev=>{
+  const t=ev.target; if(!t.dataset||!t.dataset.id) return;
+  const e=byId(t.dataset.id);
+  if(t.dataset.water!==undefined) setWater(e,parseFloat(t.value)); else update(e);
+});
+
+function noteText(e){
+  const c=calc(e), L=[(e.name+" "+sizeLabel(e.sizes[S[e.id].i])).toUpperCase(),""];
+  L.push("RECONSTITUTION","Vial: "+sizeLabel(e.sizes[S[e.id].i]),"Add: "+trim(c.w,2)+" mL bac water","Strength: "+strengthText(e,c),"Run water down the side","Swirl gently, don't shake","Fridge, use within 30 days","");
+  L.push("DOSING (U-100 syringe)",keyText(e,c),...e.doses.map(d=>doseLabel(e,c,d)+" = "+trim(d/c.unitMg,1)+" units"),"");
+  if(e.sched) L.push("SCHEDULE ("+e.freq+")",...e.sched,"");
+  L.push("NOTES ("+EV[e.ev]+")",...e.notes.map(n=>"- "+n));
+  return L.join("\n");
+}
+function copyNote(e){
+  const t=noteText(e), ok=$("ok-"+e.id), fb=$("fb-"+e.id);
+  const fallback=()=>{fb.textContent=t;fb.hidden=false;ok.textContent="Press and hold the text below to copy it.";
+    try{const r=document.createRange();r.selectNodeContents(fb);const s=getSelection();s.removeAllRanges();s.addRange(r);}catch(_){}};
+  try{navigator.clipboard.writeText(t).then(()=>{ok.textContent="Copied. Paste it into Notes.";},fallback);}catch(_){fallback();}
+}
+
+$("q").addEventListener("input",ev=>{
+  const q=ev.target.value.trim().toLowerCase(); let any=false;
+  document.querySelectorAll(".group").forEach(g=>{
+    let n=0; g.querySelectorAll("details.card").forEach(d=>{const hit=!q||d.dataset.s.includes(q); d.hidden=!hit; if(hit) n++;});
+    g.hidden=!n; if(n) any=true;
+  });
+  $("empty").hidden=any;
+});
+
+function openHash(){
+  const id=location.hash.slice(1); if(!id) return;
+  const el=document.getElementById(id);
+  if(el&&el.tagName==="DETAILS"){ el.open=true; el.scrollIntoView(); }
+}
+addEventListener("hashchange",openHash); openHash();
+</script>
+
+</body>
+</html>
